@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUIApplication.EditPage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#FFDDE1">
+
+    <ScrollView>
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20">
+            <Label Text="Редагування породи" FontSize="36" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalOptions="Center" />
+            <Grid x:Name="grid" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,*" ColumnDefinitions="Auto,*" RowSpacing="15" ColumnSpacing="15" VerticalOptions="Center" HorizontalOptions="Center">
+
+                <Label Grid.Row="1" Grid.Column="0" Text="Назва:" WidthRequest="80" FontSize="20" VerticalOptions="Center" HorizontalOptions="Center"/>
+                <Label Grid.Row="2" Grid.Column="0" Text="Походження:" WidthRequest="80" FontSize="20" VerticalOptions="Center" HorizontalOptions="Center"/>
+                <Label Grid.Row="3" Grid.Column="0" Text="Тривалість життя:" WidthRequest="80" FontSize="20" VerticalOptions="Center" HorizontalOptions="Center"/>
+                <Label Grid.Row="4" Grid.Column="0" Text="Розмір:" WidthRequest="80" FontSize="20" VerticalOptions="Center" HorizontalOptions="Center"/>
+                <Label Grid.Row="5" Grid.Column="0" Text="Шерсть:" WidthRequest="80" FontSize="20" VerticalOptions="Center" HorizontalOptions="Center"/>
+
+                <Entry WidthRequest="600" BackgroundColor="White" x:Name="NameEntry" Text="{Binding Name}" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center"/>
+                <Entry WidthRequest="600" BackgroundColor="White" x:Name="OriginEntry" Text="{Binding Origin}" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center"/>
+                <Entry WidthRequest="600" BackgroundColor="White" x:Name="LifespanEntry" Text="{Binding Lifespan}" Grid.Row="3" Grid.Column="1" HorizontalOptions="Center"/>
+                <Entry WidthRequest="600" BackgroundColor="White" x:Name="SizeEntry" Text="{Binding Size}" Grid.Row="4" Grid.Column="1" HorizontalOptions="Center"/>
+                <Entry WidthRequest="600" BackgroundColor="White" x:Name="CoatEntry" Text="{Binding Coat}" Grid.Row="5" Grid.Column="1" HorizontalOptions="Center"/>
+
+            </Grid>
+
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                <Button Text="Зберегти" FontSize="28" TextColor="White" BackgroundColor="#696D7D" BorderWidth="1" Clicked="SaveButtonHandler" />
+                <Button Text="Відмінити" FontSize="28" TextColor="White" BackgroundColor="#ee9ca7" BorderWidth="1" Clicked="CancelButtonHandler" />
+            </HorizontalStackLayout>
+        </StackLayout>
+    </ScrollView>
+    
+</ContentPage>

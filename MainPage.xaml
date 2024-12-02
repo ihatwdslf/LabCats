@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUIApplication.MainPage"
+             BackgroundColor="#FFDDE1"
+             NavigationPage.HasNavigationBar="False">
+
+    <ScrollView>
+        <Grid RowSpacing="15" ColumnSpacing="15" Padding="15" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,*" ColumnDefinitions="*,*,*,*,*,*,*,*,*">
+
+            <!-- Заголовок зліва -->
+            <Frame Grid.Row="0" Grid.Column="0" Grid.RowSpan="6" Grid.ColumnSpan="6" BackgroundColor="#FFDDE1">
+                <StackLayout>
+                    <Label Text="ОБРОБКА ФАЙЛІВ У ФОРМАТІ JSON" FontSize="24" HorizontalTextAlignment="Center" VerticalOptions="Center"/>
+                </StackLayout>
+            </Frame>
+
+            <!-- Меню зверху -->
+            <Frame Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="3">
+                <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="10" HorizontalOptions="Fill">
+                    <Button Grid.Column="0" BackgroundColor="#ee9ca7" TextColor="Black" CornerRadius="10" Text="Відкрити файл" Clicked="OpenFileHandler"/>
+                    <Button Grid.Column="1" BackgroundColor="#ee9ca7" TextColor="Black" CornerRadius="10" Text="Інформація" Clicked="InfoButtonHandler" />
+                    <Button Grid.Column="2" BackgroundColor="#ee9ca7" TextColor="Black" CornerRadius="10" Text="Вихід" Clicked="ExitButtonHandler"/>
+                </Grid>
+            </Frame>
+
+            <Frame Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="3" BorderColor="Grey">
+                <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="10" HorizontalOptions="Fill">
+                    <Button Grid.Column="0" BackgroundColor="#ee9ca7" TextColor="Black" CornerRadius="10" Text="Додати породу" Clicked="AddCatBreedHander"/>
+                    <Button Grid.Column="1" BackgroundColor="#ee9ca7" TextColor="Black" CornerRadius="10" Text="Знайти" Clicked="SearchHandler" />
+                    <Button Grid.Column="2" BackgroundColor="#ee9ca7" TextColor="Black" CornerRadius="10" Text="Очистити" Clicked="ClearFiltersHandler" />
+                </Grid>
+            </Frame>
+
+            <Frame Grid.Row="1" Grid.Column="6" Grid.RowSpan="5" Grid.ColumnSpan="3" BorderColor="Grey">
+                <Grid RowDefinitions="*,*,*,*,*" ColumnDefinitions="Auto, *" >
+                    <Label Grid.Row="0" Grid.Column="0" WidthRequest="80" Text="Назва:" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Label Grid.Row="1" Grid.Column="0" WidthRequest="80" Text="Походження:" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Label Grid.Row="2" Grid.Column="0" WidthRequest="80" Text="Тривалість життя:" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Label Grid.Row="3" Grid.Column="0" WidthRequest="80" Text="Розмір:" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Label Grid.Row="4" Grid.Column="0" WidthRequest="80" Text="Шерсть:" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center" />
+
+                    <Entry Grid.Row="0" Grid.Column="1" x:Name="NameEntry" PlaceholderColor="#222222" Placeholder="Ввести назву породи" />
+                    <Entry Grid.Row="1" Grid.Column="1" x:Name="OriginEntry" PlaceholderColor="#222222" Placeholder="Ввести країну походження" />
+                    <Entry Grid.Row="2" Grid.Column="1" x:Name="LifespanEntry" PlaceholderColor="#222222" Placeholder="Ввести тривалість життя" />
+                    <Entry Grid.Row="3" Grid.Column="1" x:Name="SizeEntry" PlaceholderColor="#222222" Placeholder="Ввести розмір породи" />
+                    <Entry Grid.Row="4" Grid.Column="1" x:Name="CoatEntry" PlaceholderColor="#222222" Placeholder="Ввести тип шерсті" />
+                </Grid>
+            </Frame>
+
+            <Frame x:Name="CatBreedList" Grid.Row="1" Grid.Column="0" Grid.RowSpan="6" Grid.ColumnSpan="6" BorderColor="Gray"
+               VerticalOptions="Start" HorizontalOptions="Fill">
+                <Grid RowDefinitions="Auto,*">
+                    <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,*,*,*,*,*" ColumnSpacing="10">
+                        <Label Grid.Row="0" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" Text="Походження" FontAttributes="Bold" />
+                        <Label Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Start" Text="Назва" FontAttributes="Bold" />
+                        <Label Grid.Row="0" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Start" Text="Тривалість життя" FontAttributes="Bold" />
+                        <Label Grid.Row="0" Grid.Column="3" VerticalOptions="Center" HorizontalOptions="Start" Text="Розмір" FontAttributes="Bold" />
+                        <Label Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2" VerticalOptions="Center" HorizontalOptions="Start" Text="Шерсть" FontAttributes="Bold" />
+                        <BoxView Grid.Row="1" Grid.ColumnSpan="6" HeightRequest="1" BackgroundColor="Gray" Margin="0,10,0,10" />
+                    </Grid>
+
+                    <!-- Прокручуваний список -->
+                    <CollectionView Grid.Row="1" x:Name="CatBreedsCollectionView" ItemsSource="{Binding CatBreedsCollection}" SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,*,*,*,*,*" ColumnSpacing="10">
+                                    <Label Grid.Row="0" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" Text="{Binding Name}" />
+                                    <Label Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Start" Text="{Binding Origin}" />
+                                    <Label Grid.Row="0" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Start" Text="{Binding Lifespan}" />
+                                    <Label Grid.Row="0" Grid.Column="3" VerticalOptions="Center" HorizontalOptions="Start" Text="{Binding Size}" />
+                                    <Button Grid.Row="0" Grid.Column="4" Text="Оглянути" Clicked="ViewDescriptionHandler" HeightRequest="10" BackgroundColor="#ee9ca7"/>
+                                    <Button Grid.Row="0" Grid.Column="5" Text="Редагувати" Clicked="EditCatBreedHandler" HeightRequest="10" BackgroundColor="#696D7D"/>
+                                    <BoxView Grid.Row="1" Grid.ColumnSpan="6" HeightRequest="10" BackgroundColor="Transparent" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </Frame>
+
+            <Label x:Name="FilePathLabel" Text="Файл не обрано!" FontSize="20" Grid.Row="8" Grid.ColumnSpan="9" HorizontalTextAlignment="Center" VerticalTextAlignment="Start"/>
+        </Grid>
+
+    </ScrollView>
+
+</ContentPage>
